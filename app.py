@@ -9,7 +9,7 @@ def home():
     grado = "9"
     grupo = "A"
     imagen_url = "https://github.com/keren31/flask/blob/master/yo.jpeg"  # URL directa de la imagen
-    imagen_escuela_url = "https://lh3.googleusercontent.com/p/AF1QipNxAQeBQWYSSYyHI9ATEOTuuzhgkXJygHmb-mkz=s1360-w1360-h1020"  # URL directa de la imagen de la escuela
+    imagen_escuela_url = ""  # URL directa de la imagen de la escuela
     
     return f'''
     <html>
