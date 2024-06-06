@@ -8,9 +8,9 @@ def home():
     matricula = "20210661"
     grado = "9"
     grupo = "A"
-    imagen_url = "https://github.com/keren31/flask/blob/master/yo.jpeg?raw=true"  # URL de una imagen de ejemplo
+    imagen_url = "https://github.com/keren31/flask/blob/master/yo.jpeg?raw=true"
+    universidad_imagen_url = "https://github.com/keren31/flask/blob/master/uthh.jpg?raw=true"  # URL de ejemplo para la imagen de la universidad
     
-    # HTML con estilo en línea para dar colores azules y agregar imagen e íconos de redes sociales
     return f'''
     <html>
     <head>
@@ -25,6 +25,11 @@ def home():
                 height: 100vh;
                 margin: 0;
             }}
+            .container-wrapper {{
+                display: flex;
+                justify-content: space-around;
+                width: 80%;
+            }}
             .container {{
                 padding: 20px;
                 border: 1px solid #1e90ff; /* Borde azul */
@@ -33,6 +38,17 @@ def home():
                 box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
                 text-align: center;
                 width: 300px;
+                margin: 10px;
+            }}
+            .info-container {{
+                text-align: left;
+            }}
+            .info-container img {{
+                float: right;
+                width: 100px;
+                height: 100px;
+                border-radius: 10px;
+                margin-left: 10px;
             }}
             h1 {{
                 color: #4682b4; /* Azul acero */
@@ -60,17 +76,26 @@ def home():
         </style>
     </head>
     <body>
-        <div class="container">
-            <img src="{imagen_url}" alt="Profile Picture" class="profile-img">
-            <h1>Información del Estudiante</h1>
-            <p><strong>Nombre:</strong> {nombre}</p>
-            <p><strong>Matrícula:</strong> {matricula}</p>
-            <p><strong>Grado:</strong> {grado}</p>
-            <p><strong>Grupo:</strong> {grupo}</p>
-            <div class="social-icons">
-                <a href="https://www.facebook.com/keren.zumaya?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a>
-                <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <div class="container-wrapper">
+            <div class="container">
+                <img src="{imagen_url}" alt="Profile Picture" class="profile-img">
+                <h1>Información del Estudiante</h1>
+                <p><strong>Nombre:</strong> {nombre}</p>
+                <p><strong>Matrícula:</strong> {matricula}</p>
+                <p><strong>Grado:</strong> {grado}</p>
+                <p><strong>Grupo:</strong> {grupo}</p>
+                <div class="social-icons">
+                    <a href="https://www.facebook.com/keren.zumaya?mibextid=ZbWKwL" target="_blank"><i class="fab fa-facebook"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="container info-container">
+                <h1>Estudio en:</h1>
+                <img src="{universidad_imagen_url}" alt="Universidad">
+                <p><strong>Nombre: Universidad Tecnológica de la Huasteca Hidalguense</strong> Universidad Platón</p>
+                <p><strong>Dirección: Carr. Huejutla - Chalahuiyapa S/N, Col.Tepoxteco, 43000 Huejutla de Reyes, Hgo.</strong> Calle Falsa 123, Ciudad</p>
+                <p><strong>Teléfono: 789 896 2088</strong> 555-1234</p>
             </div>
         </div>
     </body>
@@ -79,5 +104,6 @@ def home():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
