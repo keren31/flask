@@ -28,7 +28,7 @@ def home():
             .container-wrapper {{
                 display: flex;
                 justify-content: space-around;
-                width: 80%;
+                width: 90%;
             }}
             .container {{
                 padding: 20px;
@@ -42,11 +42,15 @@ def home():
             }}
             .info-container {{
                 text-align: left;
+                flex: 2; /* Hace que el contenedor de información de la universidad sea más grande */
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
             }}
             .info-container img {{
-                float: right;
-                width: 100px;
-                height: 100px;
+                align-self: flex-end;
+                width: 150px;
+                height: 150px;
                 border-radius: 10px;
                 margin-left: 10px;
             }}
@@ -91,11 +95,11 @@ def home():
                 </div>
             </div>
             <div class="container info-container">
-                <h1>Estudio en:</h1>
+                <h1>Estudio en</h1>
+                <p><strong>Universidad Tecnológica de la Huasteca Hidalguense</strong> </p>
+                <p><strong>Dirección: </strong> Carr. Huejutla - Chalahuiyapa S/N, Col.Tepoxteco, 43000 Huejutla de Reyes, Hgo.</p>
+                <p><strong>Teléfono:</strong> 789 896 2088</p>
                 <img src="{universidad_imagen_url}" alt="Universidad">
-                <p><strong>Nombre: Universidad Tecnológica de la Huasteca Hidalguense</strong> Universidad Platón</p>
-                <p><strong>Dirección: Carr. Huejutla - Chalahuiyapa S/N, Col.Tepoxteco, 43000 Huejutla de Reyes, Hgo.</strong> Calle Falsa 123, Ciudad</p>
-                <p><strong>Teléfono: 789 896 2088</strong> 555-1234</p>
             </div>
         </div>
     </body>
@@ -104,6 +108,7 @@ def home():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
 
 
 
