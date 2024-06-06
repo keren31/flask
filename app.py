@@ -8,7 +8,7 @@ def home():
     matricula = "20210661"
     grado = "9"
     grupo = "A"
-    imagen_url = "https://github.com/keren31/flask/blob/master/yo.jpeg"  # URL de una imagen de ejemplo
+    imagen_url = "https://github.com/keren31/flask/blob/master/yo.jpeg?raw=true"  # URL de una imagen de ejemplo
     
     # HTML con estilo en línea para dar colores azules y agregar imagen e íconos de redes sociales
     return f'''
