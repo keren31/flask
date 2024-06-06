@@ -1,4 +1,4 @@
-from flask import Flask, request
+from flask import Flask
 
 app = Flask(__name__)
 
@@ -146,14 +146,6 @@ def home():
     </body>
     </html>
     '''
-
-@app.route('/submit', methods=['POST'])
-def submit():
-    nombre = request.form['nombre']
-    email = request.form['email']
-    mensaje = request.form['mensaje']
-    # Aquí podrías procesar los datos del formulario como enviarlos a un correo o guardarlos en una base de datos.
-    return f"Gracias por tu mensaje, {nombre}. Hemos recibido tu mensaje: {mensaje}"
 
 if __name__ == '__main__':
     app.run(debug=True)
