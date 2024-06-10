@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Clasificador de Cancer de mama</title>
+    <title>Clasificador de Insectos</title>
     <script>
-        function clasificarTumor(event) {
+        function clasificarInsecto(event) {
             event.preventDefault();
-            const Tumor = document.getElementById('Tumor').value;
-            const Inv_Nodes = document.getElementById('Inv_Nodes').value;
+            const abdomen = document.getElementById('abdomen').value;
+            const antena = document.getElementById('antena').value;
 
             fetch('/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: `Tumor=${Tumor}&Inv_Nodes=${Inv_Nodes}`,
+                body: `abdomen=${abdomen}&antena=${antena}`,
             })
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
                     document.getElementById('resultado').innerText = 'Error: ' + data.error;
                 } else {
-                    document.getElementById('resultado').innerText = 'El diagnostico es ' + data.categoria;
+                    document.getElementById('resultado').innerText = 'El insecto es una ' + data.categoria;
                 }
             })
             .catch(error => {
@@ -31,15 +31,12 @@
     </script>
 </head>
 <body>
-    <h1>Clasificador de cancer de mama</h1>
-    <form id="formulario" onsubmit="clasificarTumor(event)">
-        <label for="Tumor">Tamaño del tumor en cm:</label>
-        <input type="text" id="Tumor" name="Tumor Size"><br><br>
-        <label for="Inv_Nodes">Ganglios afecatdos:</label>
-        <select id="Inv_Nodes">
-            <option value="1" selected>Si</option>
-            <option value="0">No</option>
-        </select><br><br>
+    <h1>Clasificador de Insectos</h1>
+    <form id="formulario" onsubmit="clasificarInsecto(event)">
+        <label for="abdomen">Longitud del Abdomen:</label>
+        <input type="text" id="abdomen" name="abdomen"><br><br>
+        <label for="antena">Longitud de las Antenas:</label>
+        <input type="text" id="antena" name="antena"><br><br>
         <input type="submit" value="Enviar">
     </form>
     <p id="resultado"></p>

@@ -9,7 +9,7 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 
 # Cargar el modelo entrenado
-model = joblib.load('modeloRandom.pkl')
+model = joblib.load('model.pkl')
 app.logger.debug('Modelo cargado correctamente.')
 
 @app.route('/')
@@ -20,11 +20,11 @@ def home():
 def predict():
     try:
         # Obtener los datos enviados en el request
-        Tumor = float(request.form['Tumor'])
-        Inv_Nodes = float(request.form['Inv_Nodes'])
+        abdomen = float(request.form['abdomen'])
+        antena = float(request.form['antena'])
         
         # Crear un DataFrame con los datos
-        data_df = pd.DataFrame([[Tumor, Inv_Nodes]], columns=['Tumor Size (cm)', 'Inv-Nodes'])
+        data_df = pd.DataFrame([[abdomen, antena]], columns=['abdomen', 'antena'])
         app.logger.debug(f'DataFrame creado: {data_df}')
         
         # Realizar predicciones
