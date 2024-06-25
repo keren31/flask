@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Clasificador de Cancer de mama</title>
+    <script>
+        function clasificarTumor(event) {
+            event.preventDefault();
+            const Tumor = document.getElementById('Tumor').value;
+            const Inv_Nodes = document.getElementById('Inv_Nodes').value;
+
+            fetch('/predict', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: `Tumor=${Tumor}&Inv_Nodes=${Inv_Nodes}`,
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.error) {
+                    document.getElementById('resultado').innerText = 'Error: ' + data.error;
+                } else {
+                    document.getElementById('resultado').innerText = 'El diagnostico es ' + data.categoria;
+                }
+            })
+            .catch(error => {
+                document.getElementById('resultado').innerText = 'Error en la solicitud.';
+                console.error('Error:', error);
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Clasificador de cancer de mama</h1>
+    <form id="formulario" onsubmit="clasificarTumor(event)">
+        <label for="Tumor">Tamaño del tumor en cm:</label>
+        <input type="text" id="Tumor" name="Tumor Size"><br><br>
+        <label for="Inv_Nodes">Ganglios afecatdos:</label>
+        <select id="Inv_Nodes">
+            <option value="1" selected>Si</option>
+            <option value="0">No</option>
+        </select><br><br>
+        <input type="submit" value="Enviar">
+    </form>
+    <p id="resultado"></p>
+</body>
+</html>

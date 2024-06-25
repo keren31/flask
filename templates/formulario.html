@@ -1,26 +1,80 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Clasificador de Cancer de mama</title>
+    <title>Edad de abulon </title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f7fa;
+            color: #333;
+        }
+        .container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #e0f2f1;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #009688;
+            text-align: center;
+        }
+        form {
+            text-align: center;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #009688;
+        }
+        input[type="text"] {
+            width: 30%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            text-align: center;
+        }
+        input[type="submit"] {
+            background-color: #009688;
+            color: white;
+            padding: 10px 60px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        input[type="submit"]:hover {
+            background-color: #00796b;
+        }
+        #resultado {
+            margin-top: 40px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
     <script>
-        function clasificarTumor(event) {
+        function predeciraños(event) {
             event.preventDefault();
-            const Tumor = document.getElementById('Tumor').value;
-            const Inv_Nodes = document.getElementById('Inv_Nodes').value;
+            const whole_wt = document.getElementById('whole_wt').value;
+            const shucked_wt = document.getElementById('shucked_wt').value;
+            const shell_wt = document.getElementById('shell_wt').value;
+            const rings = document.getElementById('rings').value;
 
             fetch('/predict', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded',
                 },
-                body: `Tumor=${Tumor}&Inv_Nodes=${Inv_Nodes}`,
+                body: `whole_wt=${whole_wt}&shucked_wt=${shucked_wt}&shell_wt=${shell_wt}&rings=${rings}`,
             })
             .then(response => response.json())
             .then(data => {
                 if (data.error) {
                     document.getElementById('resultado').innerText = 'Error: ' + data.error;
                 } else {
-                    document.getElementById('resultado').innerText = 'El diagnostico es ' + data.categoria;
+                    document.getElementById('resultado').innerText = 'El resultado es ' + data.resultado;
                 }
             })
             .catch(error => {
@@ -31,17 +85,19 @@
     </script>
 </head>
 <body>
-    <h1>Clasificador de cancer de mama</h1>
-    <form id="formulario" onsubmit="clasificarTumor(event)">
-        <label for="Tumor">Tamaño del tumor en cm:</label>
-        <input type="text" id="Tumor" name="Tumor Size"><br><br>
-        <label for="Inv_Nodes">Ganglios afecatdos:</label>
-        <select id="Inv_Nodes">
-            <option value="1" selected>Si</option>
-            <option value="0">No</option>
-        </select><br><br>
+    <h1>Edad de abulon</h1>
+    <form id="formulario" onsubmit="predeciraños(event)">
+        <label for="whole_wt">Peso total:</label>
+        <input type="text" id="whole_wt" name="whole_wt"><br><br>
+        <label for="shucked_wt">Peso sin cáscara:</label>
+        <input type="text" id="shucked_wt" name="shucked_wt"><br><br>
+        <label for="shell_wt">Peso de la cáscara:</label>
+        <input type="text" id="shell_wt" name="shell_wt"><br><br>
+        <label for="rings">Anillos:</label>
+        <input type="text" id="rings" name="rings"><br><br>
         <input type="submit" value="Enviar">
     </form>
     <p id="resultado"></p>
 </body>
 </html>
+
