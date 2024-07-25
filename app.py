@@ -9,8 +9,8 @@ app = Flask(__name__)
 logging.basicConfig(level=logging.DEBUG)
 
 # Cargar el modelo entrenado
-model = joblib.load('RandomForest.pkl')
-scaler = joblib.load('df_escalado.pkl')
+model = joblib.load('randomForestestetica.pkl')
+scaler = joblib.load('scalerestetica.pkl')
 app.logger.debug('Modelo cargado correctamente.')
 
 @app.route('/')
@@ -20,40 +20,33 @@ def home():
 @app.route('/predict', methods=['POST'])
 def predict():
     try:
-        # Obtener los datos enviados en el request
-        whole_wt = float(request.form['whole_wt'])
-        shucked_wt = float(request.form['shucked_wt'])
-        shell_wt = float(request.form['shell_wt'])
-        rings = float(request.form['rings'])
-        
-        input_data = pd.DataFrame({
-            'length': [0],
-            'diameter': [0],
-            'height': [0],
-            'whole_wt': [whole_wt],
-            'shucked_wt': [shucked_wt],
-            'viscera_wt': [0],
-            'shell_wt': [shell_wt],
-            'rings': [rings],
-            'sex_F': [0],
-            'sex_I': [0],
-            'sex_M': [0],
+
+        citas_canceladas= float(request.form['citas_canceladas']);
+        citas_totales = (request.form['citas_totales']);
+        hora =(request.form['hora']);
+        dia =(request.form['dia']);
+
+        data = pd.DataFrame({
+            'servicio': [0],
+            'precio': [0],
+            'duracion': [0],
+            'dia': [dia],
+            'mes': [0],
+            'hora': [hora],
+            'citas_totales': [citas_totales],
+            'citas_canceladas': [citas_canceladas],
         })
 
-  # Escalar los datos de entrada
-        scaled_data = scaler.transform(input_data)
 
-        # Seleccionar solo las características usadas para el modelo
-        scaled_data_for_prediction = scaled_data[:, [3,4,6,7]]  # Asegúrate de que estos índices son correctos
+        scaled_data = scaler.transform(data)
+        scaled_data_for_prediction = scaled_data[:, [-1,-2,-3,-5]]
 
-        # Realizar la predicción con los datos escalados
         prediccion = model.predict(scaled_data_for_prediction)
 
-          # Devolver la predicción como JSON
-        prediction_value = float(prediccion[0]) # Convertir a float si es necesario
-        
-        # Devolver las predicciones como respuesta JSON
-        return jsonify({'resultado': prediction_value})
+        resultado = (prediccion[0])
+
+        return ({'prediction': resultado})
+     
     except Exception as e:
         app.logger.error(f'Error en la predicción: {str(e)}')
         return jsonify({'error': str(e)}), 400
